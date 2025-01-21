@@ -1,6 +1,5 @@
 from base64 import b64decode
 import os
-
 import random
 from MonsterLab import Monster
 from flask import Flask, render_template, request
@@ -10,9 +9,8 @@ from app.data import Database
 from app.graph import chart
 from app.machine import Machine
 
-SPRINT = 1
+SPRINT = 3
 APP = Flask(__name__)
-
 
 @APP.route("/")
 def home():
@@ -23,11 +21,11 @@ def home():
         password=b64decode(b"VGFuZ2VyaW5lIERyZWFt"),
     )
 
-
-@APP.route("/data")
+@APP.route("/data", methods=["GET"])
 def data():
     if SPRINT < 1:
         return render_template("data.html")
+
     db = Database("Monster")
     return render_template(
         "data.html",
@@ -35,18 +33,21 @@ def data():
         table=db.html_table(),
     )
 
-
 @APP.route("/view", methods=["GET", "POST"])
 def view():
     if SPRINT < 2:
         return render_template("view.html")
-    db = Database()
-    options = ["Level", "Health", "Energy", "Sanity", "Rarity"]
-    x_axis = request.values.get("x_axis") or options[1]
-    y_axis = request.values.get("y_axis") or options[2]
-    target = request.values.get("target") or options[4]
+
+    db = Database("Monster")
+    df = db.dataframe()
+
+    options = df.columns.tolist()
+    x_axis = request.values.get("x_axis") or options[0]
+    y_axis = request.values.get("y_axis") or options[1]
+    target = request.values.get("target") or options[-1]
+
     graph = chart(
-        df=db.dataframe(),
+        df=df,
         x=x_axis,
         y=y_axis,
         target=target,
@@ -61,40 +62,62 @@ def view():
         graph=graph,
     )
 
-
 @APP.route("/model", methods=["GET", "POST"])
 def model():
-    if SPRINT < 3:
-        return render_template("model.html")
-    db = Database()
-    options = ["Level", "Health", "Energy", "Sanity", "Rarity"]
-    filepath = os.path.join("app", "model.joblib")
-    if not os.path.exists(filepath):
-        df = db.dataframe()
-        machine = Machine(df[options])
-        machine.save(filepath)
-    else:
-        machine = Machine.open(filepath)
-    stats = [round(random.uniform(1, 250), 2) for _ in range(3)]
-    level = request.values.get("level", type=int) or random.randint(1, 20)
-    health = request.values.get("health", type=float) or stats.pop()
-    energy = request.values.get("energy", type=float) or stats.pop()
-    sanity = request.values.get("sanity", type=float) or stats.pop()
-    prediction, confidence = machine(DataFrame(
-        [dict(zip(options, (level, health, energy, sanity)))]
-    ))
-    info = machine.info()
-    return render_template(
-        "model.html",
-        info=info,
-        level=level,
-        health=health,
-        energy=energy,
-        sanity=sanity,
-        prediction=prediction,
-        confidence=f"{confidence:.2%}",
-    )
+    try:
+        print("Accessing /model route...")
+        db = Database('Monster')
+        print("Database initialized.")
+
+        options = ["Level", "Health", "Energy", "Sanity", "Rarity"]
+        filepath = os.path.join("app", "model.joblib")
+        retrain = request.values.get("retrain") == "on"
+        print(f"Retrain selected: {retrain}")
+
+        if not os.path.exists(filepath) or retrain:
+            print("Training new model...")
+            df = db.dataframe()
+            print(f"DataFrame columns: {df.columns}")
+            machine = Machine(df[options])
+            machine.save(filepath)
+            print("Model trained and saved.")
+        else:
+            print("Loading model from file...")
+            machine = Machine.open(filepath)
+            print("Model loaded successfully.")
+
+        stats = [round(random.uniform(1, 250), 2) for _ in range(3)]
+        level = request.values.get("level", type=int) or random.randint(1, 20)
+        health = request.values.get("health", type=float) or stats.pop()
+        energy = request.values.get("energy", type=float) or stats.pop()
+        sanity = request.values.get("sanity", type=float) or stats.pop()
+        print(f"Input values - Level: {level}, Health: {health}, Energy: {energy}, Sanity: {sanity}")
+
+        features = DataFrame([dict(zip(options[:-1], (level, health, energy, sanity)))])
+        print(f"Prediction features: {features}")
+        prediction, confidence = machine(features)
+        print(f"Prediction: {prediction}, Confidence: {confidence}")
+
+        info = machine.info()
+        return render_template(
+            "model.html",
+            info=info,
+            level=level,
+            health=health,
+            energy=energy,
+            sanity=sanity,
+            prediction=prediction,
+            confidence=f"{confidence:.2%}",
+        )
+    except Exception as e:
+        print("Error in /model route:", str(e))
+        return render_template(
+            "model.html",
+            info=None,
+            error=f"An error occurred: {str(e)}"
+        )
+
 
 
 if __name__ == '__main__':
-    APP.run()
+    APP.run(debug=True)
