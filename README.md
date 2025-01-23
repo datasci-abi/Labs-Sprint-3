@@ -1,68 +1,56 @@
 # Bandersnatch Project
 
-Read the Documentation for information on how to get started.
+## Overview
+The Bandersnatch project leverages advanced technologies to create dynamic visualizations and interactive machine learning models through a comprehensive web application. This project is designed to showcase the capabilities of a modern tech stack while providing practical, user-friendly interfaces.
 
-[Deployed App](https://bandersnatch.herokuapp.com)
+## Technology Stack
+- **Programming Language**: Python
+- **Web Framework**: Flask
+- **Database**: MongoDB
+- **Frontend**: HTML, CSS (with Jinja2 for templates)
+- **Data Visualization**: Altair
+- **Machine Learning**: Scikit-learn
+- **Hosting**: Heroku
 
+## Features
+- Dynamic visualizations that allow users to interact with the data in meaningful ways.
+- Machine learning models that users can interact with to predict, analyze, and understand complex datasets.
+- A robust backend setup using Flask to manage routes and server-side logic.
+- An intuitive user interface that ensures a seamless user experience.
 
-### Tech Stack
-- Logic: Python3
-- API Framework: Flask
-- Templates: Jinja2
-- Structure: HTML5
-- Styling: CSS3
-- Database: MongoDB
-- Graphs: Altair
-- Machine Learning: Scikit
-- Hosting: Heroku
+## Getting Started
+To get started with the Bandersnatch project, follow these steps:
 
-### Provided Code
-- HTML Templates
-- CSS Styles
-- API Framework
-- Miscellaneous Helper Files
-- Sprint Specific Documentation
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourgithubusername/bandersnatch.git
+   cd bandersnatch
+Install dependencies
 
-### Primary Features by URL
-- `/`: Splash Page
-- `/data`: Tabular Data
-- `/view`: Dynamic Visualizations
-- `/model`: Interactive Machine Learning Model
+bash
 
-### Primary Goals
-For best results, complete each sprint in order, before going on to the next sprint.
+pip install -r requirements.txt
+Set up the environment Create a .env file in the root directory and update it with your database credentials and other environment-specific variables.
 
-1. Sprint 1: Database Operations
-	- Develop a database interface class
-	- Create random data
-	- Populate the database with at least 1000 datapoints
-2. Sprint 2: Dynamic Visualizations
-	- Notebook exploration
-	- Chart function
-	- API integration
-3. Sprint 3: Machine Learning Model
-	- Notebook exploration
-	- Machine Learning interface class
-	- Model serialization (save and open)
-	- API model integration
+Run the application
 
-### Stretch Goals
-- Use ElephantSQL instead of MongoDB
-- Use Plotly instead of Altair
-- Use PyTorch instead of Scikit
-- Use FastAPI instead of Flask
-- Add the ability for the user to reset & reseed the database
-- Add the ability for the user to re-train the machine learning model
-- Add the ability for the user to download a working serialized model and dataset
-- Add authentication to sensitive pages
-- Use a different set of features to train the model
-- Use your own dataset entirely
+bash
 
+python app.py
+Visit the application Open your web browser and go to http://localhost:5000 to see the Bandersnatch project in action.
 
-### OS Specific Notes: Gunicorn is not Windows compatible!
-- Windows users should not use the `run.sh` shell script, as it depends on gunicorn.
-- Windows users should use `py -m app.main` to start the app with Flask acting as the server.
-- Windows users may need to download the [wheel for fortuna](https://github.com/decagondev/fortuna-bin-win64) dependency. and follow its [README](https://github.com/decagondev/fortuna-bin-win64/blob/main/README.md)
-- Mac and Linux users can use `./run.sh` script or type the command directly `python3 -m gunicorn app.main:APP`.
-- Feel free to modify the shell scripts to suit your needs, these are intended to run locally.
-- In any case you should not modify the Procfile, this is the run script for the remote server.
+Contribution
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
+
+Fork the Project
+Create your Feature Branch (git checkout -b feature/AmazingFeature)
+Commit your Changes (git commit -m 'Add some AmazingFeature')
+Push to the Branch (git push origin feature/AmazingFeature)
+Open a Pull Request
+License
+Distributed under the MIT License. See LICENSE for more information.
+
+Contact
+Abisek Raut abisek_raut@hotmail.com
+
+⚡ Fun fact: The name 'Bandersnatch' was inspired by a fictional creature in Lewis Carroll's 1872 novel "Through the Looking-Glass".
