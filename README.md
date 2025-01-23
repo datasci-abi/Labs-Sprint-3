@@ -25,10 +25,11 @@ To get started with the Bandersnatch project, follow these steps:
    ```bash
    git clone https://github.com/yourgithubusername/bandersnatch.git
    cd bandersnatch
+
 Install dependencies
 
 bash
-
+Copy
 pip install -r requirements.txt
 Set up the environment Create a .env file in the root directory and update it with your database credentials and other environment-specific variables.
 
@@ -37,7 +38,8 @@ Run the application
 bash
 
 python app.py
-Visit the application Open your web browser and go to http://localhost:5000 to see the Bandersnatch project in action.
+Visit the application 
+Open your web browser and go to http://localhost:5000 to see the Bandersnatch project in action.
 
 Contribution
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
@@ -47,8 +49,10 @@ Create your Feature Branch (git checkout -b feature/AmazingFeature)
 Commit your Changes (git commit -m 'Add some AmazingFeature')
 Push to the Branch (git push origin feature/AmazingFeature)
 Open a Pull Request
+
 License
 Distributed under the MIT License. See LICENSE for more information.
+
 
 Contact
 Abisek Raut abisek_raut@hotmail.com
