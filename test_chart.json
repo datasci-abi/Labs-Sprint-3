@@ -1,0 +1,107 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json",
+  "background": "#222222",
+  "config": {
+    "axis": {
+      "domain": true,
+      "domainColor": "grey",
+      "domainWidth": 1.5,
+      "grid": true,
+      "gridColor": "#444444",
+      "gridOpacity": 0.6,
+      "labelColor": "grey",
+      "labelFontSize": 12,
+      "titleColor": "grey",
+      "titleFontSize": 14,
+      "titlePadding": 20
+    },
+    "legend": {
+      "labelColor": "grey",
+      "labelFontSize": 12,
+      "orient": "right",
+      "titleColor": "grey",
+      "titleFontSize": 14
+    },
+    "title": {
+      "anchor": "middle",
+      "color": "grey",
+      "fontSize": 24
+    },
+    "view": {
+      "continuousHeight": 300,
+      "continuousWidth": 300
+    }
+  },
+  "data": {
+    "name": "data-079a536ff9fd4ae9a2222ddd594d7d6c"
+  },
+  "datasets": {
+    "data-079a536ff9fd4ae9a2222ddd594d7d6c": [
+      {
+        "Energy": 50,
+        "Health": 100,
+        "Rarity": "Rank 0",
+        "Sanity": 80
+      },
+      {
+        "Energy": 75,
+        "Health": 200,
+        "Rarity": "Rank 1",
+        "Sanity": 70
+      },
+      {
+        "Energy": 60,
+        "Health": 150,
+        "Rarity": "Rank 2",
+        "Sanity": 90
+      },
+      {
+        "Energy": 90,
+        "Health": 180,
+        "Rarity": "Rank 3",
+        "Sanity": 85
+      },
+      {
+        "Energy": 80,
+        "Health": 220,
+        "Rarity": "Rank 4",
+        "Sanity": 88
+      }
+    ]
+  },
+  "encoding": {
+    "color": {
+      "field": "Rarity",
+      "type": "nominal"
+    },
+    "tooltip": [
+      {
+        "field": "Health",
+        "type": "quantitative"
+      },
+      {
+        "field": "Energy",
+        "type": "quantitative"
+      },
+      {
+        "field": "Rarity",
+        "type": "nominal"
+      }
+    ],
+    "x": {
+      "field": "Health",
+      "type": "quantitative"
+    },
+    "y": {
+      "field": "Energy",
+      "type": "quantitative"
+    }
+  },
+  "height": 400,
+  "mark": {
+    "size": 100,
+    "type": "circle"
+  },
+  "title": "Energy by Health for Rarity",
+  "width": 600
+}
